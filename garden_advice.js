@@ -12,33 +12,42 @@ let season = prompt("Enter the season (summer, winter, etc):").toLowerCase();
  */
 let plantType = prompt("Enter the plant type (flower, vegetable, etc):").toLowerCase();
 
+/**
+ * A lookup table containing plant care advice by season and plant type.
+ *
+ * @type {Object.<string, Object.<string, string>>}
+ * @property {Object} summer - Advice for the summer season.
+ * @property {string} summer.flower - Advice for flowers in summer.
+ * @property {string} summer.vegetable - Advice for vegetables in summer.
+ * @property {Object} winter - Advice for the winter season.
+ * @property {string} winter.flower - Advice for flowers in winter.
+ * @property {string} winter.vegetable - Advice for vegetables in winter.
+ */
+const adviceData = {
+    summer: {
+        flower: "Water your plants regularly and provide some shade. Use fertiliser to encourage blooms.",
+        vegetable: "Water regularly and watch out for pests."
+    },
+    winter: {
+        flower: "Protect your flowers from frost using covers.",
+        vegetable: "Keep vegetables warm and reduce watering."
+    }
+};
 
-// Variable to hold gardening advice
-let advice = "";
-
-// Determine advice based on the season
-if (season === "summer") {
-    advice += "Water your plants regularly and provide some shade.\n";
-} else if (season === "winter") {
-    advice += "Protect your plants from frost with covers.\n";
-} else {
-    advice += "No advice for this season.\n";
+/**
+ * Returns plant care advice based on season and plant type.
+ *
+ * @param {string} season - The season (e.g., "summer", "winter").
+ * @param {string} plantType - The type of plant (e.g., "flower", "vegetable").
+ * @returns {string} Advice text if available, otherwise a default message.
+ */
+function getAdvice(season, plantType) {
+    if (adviceData[season] && adviceData[season][plantType]) {
+        return adviceData[season][plantType];
+    }
+    return "No advice available for this combination.";
 }
 
-// Determine advice based on the plant type
-if (plantType === "flower") {
-    advice += "Use fertiliser to encourage blooms.";
-} else if (plantType === "vegetable") {
-    advice += "Keep an eye out for pests!";
-} else {
-    advice += "No advice for this type of plant.";
-}
-
-// Log the generated advice to the console
+// Generate and display the advice
+let advice = getAdvice(season, plantType);
 console.log(advice);
-
-// TODO: Examples of possible features to add:
-// - Add detailed comments explaining each block of code.
-// - Refactor the code into functions for better readability and modularity.
-// - Store advice in an object for multiple plants and seasons.
-// - Suggest plants that thrive in the given season.
